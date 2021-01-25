@@ -3,10 +3,13 @@ const express = require("express");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const connectDB = require('./config/db')
 
 const indexRouter = require("./routes/index");
 const pingRouter = require("./routes/ping");
 
+
+connectDB();
 const { json, urlencoded } = express;
 
 var app = express();
