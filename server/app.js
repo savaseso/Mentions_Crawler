@@ -5,11 +5,10 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const connectDB = require('./config/db')
 
-const indexRouter = require("./routes/index");
-const pingRouter = require("./routes/ping");
+
 const auth = require("./routes/auth");
 
-
+//connect to mongodb
 connectDB();
 const { json, urlencoded } = express;
 
@@ -21,8 +20,7 @@ app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/ping", pingRouter);
+
 app.use("/", auth);
 
 // catch 404 and forward to error handler
