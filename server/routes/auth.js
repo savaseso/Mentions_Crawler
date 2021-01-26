@@ -48,7 +48,7 @@ router.post("/login", async (req, res, next) => {
 
 //Get Token from model, create cookie and send response
 const sendTokenResponse = (user, statusCode, res, message) => {
-  
+
   const token = user.getSignedJwtToken();
   const options = {
     httpOnly: true,
