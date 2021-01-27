@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-
+const {protect} = require("../middleware/auth")
 //register user
 router.post("/register", async (req, res, next) => {
   const { email, company, password } = req.body;
@@ -12,7 +12,7 @@ router.post("/register", async (req, res, next) => {
       password,
     });
 
-    sendTokenResponse(user, 201, res, "Registration was successful");
+    sendTokenResponse(user, 201, res, "true");
 
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -39,10 +39,20 @@ router.post("/login", async (req, res, next) => {
       return res.status(401).json({ message: "invalid credentials" });
     }
 
-    sendTokenResponse(user, 201, res, "Login was successful");
+    sendTokenResponse(user, 201, res, "true");
 
   } catch (err) {
     res.status(400).json({ message: err.message });
+  }
+});
+
+//check if user is authenticated
+router.get("/isUserAuth", protect, async (req, res, next) => {
+  const user = await User.findById(req.user.id)
+  try {
+    res.status(200).json({success:true, data:user})
+  } catch (err) {
+    res.status(400).json({message:err})
   }
 });
 

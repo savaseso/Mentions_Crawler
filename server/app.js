@@ -4,6 +4,8 @@ const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const connectDB = require('./config/db')
+const cors = require('cors')
+
 
 
 const auth = require("./routes/auth");
@@ -19,6 +21,9 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}))
+
+
 
 app.use("/", auth);
 
