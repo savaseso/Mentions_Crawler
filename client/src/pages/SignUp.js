@@ -25,6 +25,7 @@ const SignUp = (props) => {
     const result = await response.json();
     if (result.success) {
       setIsLoggedIn(true);
+      props.history.push('/dashboard')
     } else {
       alert(result.message);
     }
@@ -39,6 +40,7 @@ const SignUp = (props) => {
             value={values.email}
             name="email"
             onChange={handleChange}
+            required
           />
           <label>Company</label>
           <input
@@ -46,6 +48,7 @@ const SignUp = (props) => {
             value={values.company}
             name="company"
             onChange={handleChange}
+            required
           />
           <label type="password">Password</label>
           <input
@@ -53,9 +56,10 @@ const SignUp = (props) => {
             value={values.password}
             name="password"
             onChange={handleChange}
+            required
           />
 
-          <button type="submit">Register</button>
+          <button type="submit">Create</button>
         </form>
       </div>
     </div>

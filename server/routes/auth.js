@@ -67,12 +67,7 @@ const sendTokenResponse = (user, statusCode, res, message) => {
 
   res
     .status(statusCode)
-  /*   .writeHead(200, {
-      "Set-Cookie": `token=${token}; HttpOnly`,
-      "Access-Control-Allow-Credentials": "true"
-    })
-    .send() */
-     .cookie("token", token, options)
+    .cookie("token", token, options)
     .json({ success: message, token }); 
 };
 

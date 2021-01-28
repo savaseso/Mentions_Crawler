@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import { useForm } from "../hooks/useForm";
 import { Context } from "../context";
 
-const Login = () => {
+
+const Login = (props) => {
   const [values, handleChange] = useForm({ email: "", password: "" });
-  const { isLoggedIn, setIsLoggedIn } = useContext(Context);
+  const { setIsLoggedIn } = useContext(Context);
 
   const login = async (e) => {
     e.preventDefault();
@@ -19,6 +20,7 @@ const Login = () => {
     const response = await fetch("http://localhost:3001/login", config);
     const result = await response.json();
     if (result.success) {
+      props.history.push('/dashboard')
       setIsLoggedIn(true);
     } else {
       alert(result.message);
@@ -35,6 +37,7 @@ const Login = () => {
             value={values.email}
             name="email"
             onChange={handleChange}
+            required
           />
           <label type="password">Password</label>
           <input
@@ -42,6 +45,7 @@ const Login = () => {
             value={values.password}
             name="password"
             onChange={handleChange}
+            required
           />
           <button type="submit">Login</button>
         </form>
