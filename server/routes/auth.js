@@ -61,13 +61,19 @@ const sendTokenResponse = (user, statusCode, res, message) => {
 
   const token = user.getSignedJwtToken();
   const options = {
-    httpOnly: true,
+    expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
+    httpOnly: true
   };
 
   res
     .status(statusCode)
-    .cookie("token", token, options)
-    .json({ success: message, token });
+  /*   .writeHead(200, {
+      "Set-Cookie": `token=${token}; HttpOnly`,
+      "Access-Control-Allow-Credentials": "true"
+    })
+    .send() */
+     .cookie("token", token, options)
+    .json({ success: message, token }); 
 };
 
 module.exports = router;

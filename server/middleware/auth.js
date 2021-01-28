@@ -14,7 +14,7 @@ exports.protect = async function(req,res,next) {
 
     //make sure token exists
     if(!token){
-        return res.status(401).json({message:"Not authorized to access this route"})
+        return res.status(401).json({success:false, message:"Not authorized to access this route"})
     }
 
     try {
@@ -24,6 +24,6 @@ exports.protect = async function(req,res,next) {
         req.user = await User.findById(decoded.id);
         next();
     } catch (err) {
-        return res.status(401).json({message:"Not authorized to access this route"})
+        return res.status(401).json({success:false, message:"Not authorized to access this route"})
     }
 }

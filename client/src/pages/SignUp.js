@@ -1,33 +1,38 @@
-import React from "react";
-import NavBar from "../components/NavBar";
-import {useForm} from "../hooks/useForm";
-import { useCookies } from 'react-cookie';
+import React, { useContext } from "react";
+import { useForm } from "../hooks/useForm";
+import { Context } from "../context";
 
-const SignUp = () => {
-    const [values, handleChange] = useForm({email:'',company:'',password:''})
-    const [cookies, setCookie] = useCookies([]);
+const SignUp = (props) => {
+  const [values, handleChange] = useForm({
+    email: "",
+    company: "",
+    password: "",
+  });
+  const { isLoggedIn, setIsLoggedIn } = useContext(Context);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const config = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(values)
-            }
-            const response = await fetch("http://localhost:3001/register", config)
-            const result = await response.json();
-            setCookie('token', result.token);
+  const signup = async (e) => {
+    e.preventDefault();
 
-        } catch (err) {
-                console.log(err)
-      }}
+    const config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(values),
+    };
+    const response = await fetch("http://localhost:3001/register", config);
+    const result = await response.json();
+    if (result.success) {
+      setIsLoggedIn(true);
+    } else {
+      alert(result.message);
+    }
+  };
   return (
     <div>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={signup}>
           <label>Email</label>
           <input
             type="email"
@@ -35,16 +40,14 @@ const SignUp = () => {
             name="email"
             onChange={handleChange}
           />
-          <label >Company</label>
+          <label>Company</label>
           <input
             type="company"
             value={values.company}
             name="company"
             onChange={handleChange}
           />
-          <label type="password" >
-            Password
-          </label>
+          <label type="password">Password</label>
           <input
             type="password"
             value={values.password}
