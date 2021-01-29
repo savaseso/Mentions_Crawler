@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar =  (props) => {
   const classes = useStyles();
-  console.log(props)
   return (
     <div className={classes.root}>
       <AppBar position="static">
