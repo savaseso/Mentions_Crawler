@@ -1,14 +1,19 @@
 import React, { useContext } from "react";
 import { useForm } from "../hooks/useForm";
 import { Context } from "../context";
+import useStyles from "../themes/theme.form";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import { Typography } from '@material-ui/core';
 
 const SignUp = (props) => {
+  const { setIsLoggedIn } = useContext(Context);
+  const classes = useStyles();
   const [values, handleChange] = useForm({
     email: "",
     company: "",
     password: "",
   });
-  const { isLoggedIn, setIsLoggedIn } = useContext(Context);
 
   const signup = async (e) => {
     e.preventDefault();
@@ -21,6 +26,7 @@ const SignUp = (props) => {
       credentials: "include",
       body: JSON.stringify(values),
     };
+
     const response = await fetch("http://localhost:3001/register", config);
     const result = await response.json();
     if (result.success) {
@@ -30,39 +36,65 @@ const SignUp = (props) => {
       alert(result.message);
     }
   };
+
   return (
     <div>
-      <div>
-        <form onSubmit={signup}>
-          <label>Email</label>
-          <input
-            type="email"
-            value={values.email}
-            name="email"
-            onChange={handleChange}
-            required
-          />
-          <label>Company</label>
-          <input
-            type="company"
-            value={values.company}
-            name="company"
-            onChange={handleChange}
-            required
-          />
-          <label type="password">Password</label>
-          <input
-            type="password"
-            value={values.password}
-            name="password"
-            onChange={handleChange}
-            required
-          />
-
-          <button type="submit">Create</button>
-        </form>
+    <div className={classes.container}>
+      <div className={classes.title}>
+      <Typography variant="h4">Lets Get Started!</Typography>
+      <Typography variant="h6" style={{color:"#6583F2",opacity:0.5}}>Create an account</Typography>
       </div>
+      <form className={classes.form} onSubmit={signup} >
+        <TextField
+          name="email"
+          variant="outlined"
+          margin="normal"
+          size="medium"
+          label="Your Email"
+          className={classes.input}
+          required
+          fullWidth
+          id="email"
+          value={values.email}
+          autoComplete="email"
+          autoFocus
+          onChange={handleChange}    
+        />
+        <TextField
+          name="company"
+          variant="outlined"
+          margin="normal"
+          size="medium"
+          label="Company name"
+          className={classes.input}
+          required
+          fullWidth
+          id="company"
+          value={values.company}
+          autoComplete="company"
+          onChange={handleChange}    
+        />
+        <TextField
+          name="password"
+          type="password"
+          variant="outlined"
+          margin="normal"
+          size="medium"
+          label="Password"
+          className={classes.input}
+          id="password"
+          required
+          fullWidth
+          value={values.password}
+          autoComplete="password"
+          onChange={handleChange}
+        />
+        <Button type="submit" className={classes.button}>
+          Sign up
+        </Button>
+      </form>
     </div>
+  </div>
   );
 };
 
