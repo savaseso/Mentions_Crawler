@@ -3,10 +3,15 @@ const express = require("express");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const connectDB = require('./config/db')
+const cors = require('cors')
 
-const indexRouter = require("./routes/index");
-const pingRouter = require("./routes/ping");
 
+
+const auth = require("./routes/auth");
+
+//connect to mongodb
+connectDB();
 const { json, urlencoded } = express;
 
 var app = express();
@@ -16,9 +21,11 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
+app.use(cors({credentials: true, origin: ['http://localhost:3000','http://localhost:3001']}))
 
-app.use("/", indexRouter);
-app.use("/ping", pingRouter);
+
+
+app.use("/", auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
