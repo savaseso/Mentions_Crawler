@@ -1,20 +1,26 @@
-import React from "react";
-import { MuiThemeProvider } from "@material-ui/core";
-import { BrowserRouter, Route } from "react-router-dom";
-
-import { theme } from "./themes/theme";
-import LandingPage from "./pages/Landing";
+import React, { useContext, useEffect } from "react";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import "./App.css";
+import { Context } from "./context";
+import { AuthenticatedRoutes, UnauthenticatedRoutes } from "./routes/routes";
+
+import NavBar from "./components/NavBar";
 
 function App() {
+  const { isLoggedIn, checkLoginStatus } = useContext(Context);
+
+  useEffect(() => {
+    //check if user is authenticated
+    checkLoginStatus();
+  }, [isLoggedIn]);
   return (
-    <MuiThemeProvider theme={theme}>
+    <React.Fragment>
       <BrowserRouter>
-        <Route path="/" component={LandingPage} />
+        <NavBar />
+        {isLoggedIn ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
       </BrowserRouter>
-    </MuiThemeProvider>
+    </React.Fragment>
   );
 }
-
 export default App;
