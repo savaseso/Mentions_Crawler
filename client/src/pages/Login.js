@@ -4,7 +4,7 @@ import { Context } from "../context";
 import useStyles from "../themes/theme.form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 
 const Login = (props) => {
   const [values, handleChange] = useForm({ email: "", password: "" });
@@ -32,12 +32,11 @@ const Login = (props) => {
   };
 
   return (
-    <div>
-      <div className={classes.container}>
-        <div className={classes.title}>
+      <Box className={classes.container}>
+        <Box className={classes.title}>
         <Typography variant="h4">Welcome back!</Typography>
         <Typography variant="h6" style={{color:"#6583F2",opacity:0.5}}>Login to your account</Typography>
-        </div>
+        </Box>
         <form className={classes.form} onSubmit={login} >
           <TextField
             name="email"
@@ -66,6 +65,7 @@ const Login = (props) => {
             id="password"
             required
             fullWidth
+            minLength="6"
             value={values.password}
             autoComplete="password"
             onChange={handleChange}
@@ -74,8 +74,7 @@ const Login = (props) => {
             Log in
           </Button>
         </form>
-      </div>
-    </div>
+      </Box> 
   );
 };
 

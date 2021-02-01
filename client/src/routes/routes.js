@@ -6,8 +6,6 @@ import { theme } from "../themes/theme";
 import Settings from "../pages/Settings";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
-import { Context } from "../context";
-import { useContext } from "react";
 import Default from "../pages/Default";
 
 export const AuthenticatedRoutes = (props) => {
@@ -24,7 +22,6 @@ export const AuthenticatedRoutes = (props) => {
 };
 
 export const UnauthenticatedRoutes = (props) => {
-  const { isLoggedIn } = useContext(Context);
 
   return (
     <MuiThemeProvider theme={theme}>

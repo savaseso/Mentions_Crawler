@@ -1,5 +1,4 @@
 import React, { useState, createContext } from "react";
-import { useEffect } from "react";
 // Create Context Object
 export const Context = createContext();
 
@@ -11,11 +10,9 @@ export const ContextProvider = (props) => {
       credentials: "include",
     });
     const result = await response.json();
-    if (result.success) {
-      setIsLoggedIn(true);
-    } else if (!result.success) {
-      setIsLoggedIn(false);
-    }
+
+    setIsLoggedIn(result.success);
+ 
   };
 
   const contextValue = {

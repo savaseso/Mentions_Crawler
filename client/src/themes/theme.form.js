@@ -5,9 +5,9 @@ const useStyles = makeStyles((theme) => ({
     margin: "5rem auto",
     width: "420px",
     height: "450px",
-    background:"#fff",
-    padding:"2rem",
-    borderRadius:"2px"
+    background: "#fff",
+    padding: "2rem",
+    borderRadius: "2px",
   },
   title: {
     display: "flex",
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "20px",
     borderRadius: "30px",
     marginLeft: "2rem",
-    backgroundColor: "#6583F2",
+    backgroundColor: theme.palette.primary.main,
     color: "#fff",
     "&:hover": {
       background: "#617EE9",

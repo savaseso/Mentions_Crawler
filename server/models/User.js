@@ -44,7 +44,7 @@ UserSchema.pre("save", async function (next) {
 //Sign JWT and return 
 UserSchema.methods.getSignedJwtToken = function (){
  return JWT.sign({id:this._id}, process.env.JWT_SECRET, {
-   expiresIn:300
+   expiresIn:600
  })
 }
 //Check if user entered password matches with database

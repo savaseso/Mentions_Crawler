@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -8,30 +7,10 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { withRouter } from "react-router-dom";
 import { Context } from "../context";
 import { Link } from "react-router-dom";
+import {useStyles} from "../themes/theme.navbar";
 
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: "#6583F2",
-    height: 100,
-  },
 
-  menuButton: {
-    marginRight: theme.spacing(2),
-    border: "2px solid",
-    width: "150px",
-    height: "52px",
-    borderRadius: "30px",
-    marginLeft: "2rem",
-  },
-  settingIcon: {
-    fontSize: "30px",
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
 
 const NavBar = (props) => {
   const { isLoggedIn } = useContext(Context);
@@ -58,7 +37,9 @@ const NavBar = (props) => {
               </Button>
             </React.Fragment>
           ) : (
-            <Link to="/settings"><SettingsIcon className={classes.settingIcon} /></Link>
+            <Link to="/settings">
+              <SettingsIcon className={classes.settingIcon} />
+            </Link>
           )}
         </Toolbar>
       </AppBar>
