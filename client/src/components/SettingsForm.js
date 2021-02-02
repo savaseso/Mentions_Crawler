@@ -1,33 +1,55 @@
-import React, { useState }  from 'react'
-import { useForm } from "../hooks/useForm";
+import React, { useState,useContext }  from 'react'
 import { TextField, Box } from "@material-ui/core";
 import useStyles  from "../themes/theme.settings";
 import Button from "@material-ui/core/Button";
+import { Context } from "../context";
+import { ObjectID } from 'bson';
+
 
  const SettingsForm = () => {
    const classes = useStyles();
-
-   const [companies, setCompanies] = useState([{ id: 123, company: "Amazon" }]);
-   const [email, setUserEmail] = useForm({ email: "myemail@gmail.com" });
+   const { email, setEmail, companies, setCompanies } = useContext(Context);
 
    const handleChangeInput = (index, event) => {
      const values = [...companies];
-     values[index][event.target.name] = event.target.value;
+      values[index][event.target.name] = event.target.value;
      setCompanies(values);
    };
 
-   const addCompany = () =>
-     setCompanies([...companies, { company: "", id: Date.now() }]);
-
-   const removeCompany = (id) => {
-     const values = [...companies].filter((company) => company.id !== id);
+   const addCompany = () =>{
+     const id  = new ObjectID();
+     setCompanies([...companies, { company: "", _id:id.toString() }]);
+   }
+   const removeCompany = (_id) => {
+     const values = [...companies].filter((company) => company._id !== _id);
      setCompanies(values);
    };
 
-   const handleSubmit = (e) => {
+   const handleSubmit = async (e) => {
      e.preventDefault();
-     console.log(companies, email);
+     const data = {
+       email,
+       company:[...companies]     }
+       
+      const config = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(data),
+    };
+    try{
+     const req = await fetch("http://localhost:3001/settings",config) 
+    const result = await req.json()
+   if(result.success){
+     alert("Saved")
+   }
+    } catch(err) {
+      alert(err) 
+    }
    };
+   console.log(email)
    return (
      <form onSubmit={(e) => handleSubmit(e)}>
        <Box className={classes.container}>
@@ -35,9 +57,9 @@ import Button from "@material-ui/core/Button";
            <label>Your Company</label>
          </Box>
          <Box display="flex" flexDirection="column">
-           {companies.map(({ company, id }, index) => (
+           {companies.map(({company,_id}, index) => (
              <TextField
-               key={id}
+               key={_id} 
                name="company"
                type="text"
                variant="outlined"
@@ -55,7 +77,7 @@ import Button from "@material-ui/core/Button";
                    index + 1 === companies.length ? (
                     <Button   className={classes.buttonInput} add onClick={addCompany} >Add</Button>                   
                    ) : (
-                    <Button  className={classes.buttonInput}    onClick={()=>removeCompany(id)} >Remove</Button>
+                    <Button  className={classes.buttonInput}    onClick={()=>removeCompany(_id)} >Remove</Button>
                    ),
                }}
              />
@@ -77,10 +99,10 @@ import Button from "@material-ui/core/Button";
              className={classes.input}
              required
              id="email"
-             value={email.email}
+             value={email}
              autoComplete="email"
              autoFocus
-             onChange={setUserEmail}
+             onChange={e=>setEmail(e.target.value)}
            />
          </Box>
        </Box>

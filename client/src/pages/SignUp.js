@@ -17,6 +17,7 @@ const SignUp = (props) => {
 
   const signup = async (e) => {
     e.preventDefault();
+    const {email, company, password} = values
 
     const config = {
       method: "POST",
@@ -24,11 +25,12 @@ const SignUp = (props) => {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify(values),
+      body: JSON.stringify({email,company:{company},password}),
     };
 
     const response = await fetch("http://localhost:3001/register", config);
     const result = await response.json();
+    console.log(values)
     if (result.success) {
       setIsLoggedIn(true);
       props.history.push('/dashboard')

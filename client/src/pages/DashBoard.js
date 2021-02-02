@@ -28,7 +28,9 @@ const DashBoard = () => {
             <Box m={5} display="flex" justifyContent="space-between">
               <Typography variant="h4">My mentions</Typography>
               <Box className={classes.buttonGroup}>
-                <Button  className={classes.button} disabled>Most recent</Button>
+                <Button className={classes.button} disabled>
+                  Most recent
+                </Button>
                 <Button className={classes.button}>Most popular</Button>
               </Box>
             </Box>

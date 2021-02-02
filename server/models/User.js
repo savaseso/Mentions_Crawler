@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema({
   },
 
   company: {
-    type: [String],
+    type: [{company:String}],
     required: [true, "Please add a company name"]
   },
 
@@ -44,7 +44,7 @@ UserSchema.pre("save", async function (next) {
 //Sign JWT and return 
 UserSchema.methods.getSignedJwtToken = function (){
  return JWT.sign({id:this._id}, process.env.JWT_SECRET, {
-   expiresIn:600
+   expiresIn:300
  })
 }
 //Check if user entered password matches with database

@@ -20,9 +20,9 @@ const useStyles = makeStyles((theme) => ({
     height: "45px",
     paddingRight: "10px",
   },
-  //MISSING these styles when rendering ?! 
-  
- /* buttonGroup: {
+  //MISSING these styles when rendering ?!
+
+  /* buttonGroup: {
     backgroundColor: "#ccefff",
     width: "220px",
     height: "45px",

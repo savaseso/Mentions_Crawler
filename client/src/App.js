@@ -9,13 +9,17 @@ import NavBar from "./components/NavBar";
 
  
 function App() {
-  const { isLoggedIn, checkLoginStatus } = useContext(Context);
+  const { isLoggedIn, checkLoginStatus,getUserData,email,companies } = useContext(Context);
 
 
   useEffect(() => {
     //check if user is authenticated
     checkLoginStatus();
+    if(isLoggedIn){
+      getUserData();
+    }
   }, [isLoggedIn]);
+  console.log(companies)
   return (
     <MuiThemeProvider theme={theme}>
       <React.Fragment>

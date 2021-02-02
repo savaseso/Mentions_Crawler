@@ -4,8 +4,7 @@ const User = require('../models/User')
 
 exports.protect = async function(req,res,next) {
     let token;
-
-    //getting token from the headers
+    //getting token from the    headers
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
         token = req.headers.authorization.split(' ')[1];
     } else if (req.cookies.token){
@@ -22,6 +21,7 @@ exports.protect = async function(req,res,next) {
         const decoded = JWT.verify(token,process.env.JWT_SECRET)
 
         req.user = await User.findById(decoded.id);
+        req.id = decoded.id
         next();
     } catch (err) {
         return res.status(401).json({success:false, message:"Not authorized to access this route"})

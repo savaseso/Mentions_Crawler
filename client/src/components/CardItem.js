@@ -19,7 +19,7 @@ const CardItem = (props) => {
         />
         <CardContent className={classes.content}>
           <Typography component="h5" variant="h5">
-           maintitle
+            maintitle
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
             titletext

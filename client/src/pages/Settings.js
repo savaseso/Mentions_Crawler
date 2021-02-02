@@ -27,7 +27,7 @@ const Settings = (props) => {
               Settings <SettingsIcon className={classes.settingIcon} />
             </Typography>
             <MenuList>
-              <MenuItem   className={classes.selected} selected>
+              <MenuItem className={classes.selected} selected>
                 Company
               </MenuItem>
               <MenuItem className={classes.selected}>Security</MenuItem>
