@@ -57,9 +57,9 @@ import { ObjectID } from 'bson';
            <label>Your Company</label>
          </Box>
          <Box display="flex" flexDirection="column">
-           {companies.map(({company,_id}, index) => (
+           {companies.map(({ company, _id }, index) => (
              <TextField
-               key={_id} 
+               key={_id}
                name="company"
                type="text"
                variant="outlined"
@@ -75,9 +75,20 @@ import { ObjectID } from 'bson';
                InputProps={{
                  endAdornment:
                    index + 1 === companies.length ? (
-                    <Button   className={classes.buttonInput} add onClick={addCompany} >Add</Button>                   
+                     <Button
+                       className={classes.buttonInput}
+                       add
+                       onClick={addCompany}
+                     >
+                       Add
+                     </Button>
                    ) : (
-                    <Button  className={classes.buttonInput}    onClick={()=>removeCompany(_id)} >Remove</Button>
+                     <Button
+                       className={classes.buttonInput}
+                       onClick={() => removeCompany(_id)}
+                     >
+                       Remove
+                     </Button>
                    ),
                }}
              />
@@ -102,7 +113,7 @@ import { ObjectID } from 'bson';
              value={email}
              autoComplete="email"
              autoFocus
-             onChange={e=>setEmail(e.target.value)}
+             onChange={(e) => setEmail(e.target.value)}
            />
          </Box>
        </Box>
