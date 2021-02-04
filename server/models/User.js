@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
     ],
   },
 
-  company: {
+  companies: {
     type: [{company:String}],
     required: [true, "Please add a company name"]
   },

@@ -7,9 +7,12 @@ const User = require("../models/User");
 
 //get user data 
 router.get("/userData", protect, async (req, res, next) => {
-    const user = await User.findById(req.id)
-    res.status(200).json({success:true,data:user})
-    
+    try {
+        const user = await User.findById(req.user.id)
+        res.status(200).json({success:true,data:user})
+    } catch (err) {
+        res.status(400).json({success:false,error:err.message})
+    }
    });
   
 

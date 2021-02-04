@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { useForm } from "../hooks/useForm";
-import { Context } from "../context";
 import useStyles from "../themes/theme.form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Box, Typography } from '@material-ui/core';
+import { AuthContext } from "../authContext";
 
-const SignUp = (props) => {
-  const { setIsLoggedIn } = useContext(Context);
+const SignUp = ({history}) => {
+  const { setIsLoggedIn } = useContext(AuthContext);
+
   const classes = useStyles();
   const [values, handleChange] = useForm({
     email: "",
@@ -25,15 +26,14 @@ const SignUp = (props) => {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify({email,company:{company},password}),
+      body: JSON.stringify({email,companies:{company},password}),
     };
 
     const response = await fetch("http://localhost:3001/register", config);
     const result = await response.json();
-    console.log(values)
     if (result.success) {
       setIsLoggedIn(true);
-      props.history.push('/dashboard')
+      history.push('/dashboard')
     } else {
       alert(result.message);
     }

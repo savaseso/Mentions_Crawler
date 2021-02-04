@@ -5,15 +5,15 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { withRouter } from "react-router-dom";
-import { Context } from "../context";
 import { Link } from "react-router-dom";
 import {useStyles} from "../themes/theme.navbar";
+import { AuthContext } from "../authContext";
 
 
 
 
 const NavBar = (props) => {
-  const { isLoggedIn } = useContext(Context);
+  const { isLoggedIn } = useContext(AuthContext);
   const { pathname } = props.location;
   const classes = useStyles();
   return (

@@ -2,13 +2,15 @@ import React, { useState,useContext }  from 'react'
 import { TextField, Box } from "@material-ui/core";
 import useStyles  from "../themes/theme.settings";
 import Button from "@material-ui/core/Button";
-import { Context } from "../context";
-import { ObjectID } from 'bson';
+ import { AuthContext } from "../authContext";
+
+ import { ObjectID } from 'bson';
 
 
  const SettingsForm = () => {
    const classes = useStyles();
-   const { email, setEmail, companies, setCompanies } = useContext(Context);
+  const { email, setEmail, companies, setCompanies } = useContext(AuthContext);
+   const { currentUser } = useContext(AuthContext); 
 
    const handleChangeInput = (index, event) => {
      const values = [...companies];
@@ -29,7 +31,7 @@ import { ObjectID } from 'bson';
      e.preventDefault();
      const data = {
        email,
-       company:[...companies]     }
+       companies:[...companies]     }
        
       const config = {
       method: "PUT",
@@ -49,7 +51,7 @@ import { ObjectID } from 'bson';
       alert(err) 
     }
    };
-   console.log(email)
+   console.log(companies)
    return (
      <form onSubmit={(e) => handleSubmit(e)}>
        <Box className={classes.container}>

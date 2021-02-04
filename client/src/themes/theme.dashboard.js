@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   //MISSING these styles when rendering ?!
 
-  /* buttonGroup: {
+  buttonGroup: {
     backgroundColor: "#ccefff",
     width: "220px",
     height: "45px",
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
       color:"#fff"
     },
     
-  },  */
+  }, 
 }));
 
 export default useStyles;

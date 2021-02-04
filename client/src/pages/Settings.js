@@ -15,8 +15,8 @@ const Settings = (props) => {
     //1. remove cookie
 
     //2.push to login
-    props.history.push("/login");
-  };
+     props.history.push("/login");
+   };
 
   return (
     <Container maxWidth="xl">

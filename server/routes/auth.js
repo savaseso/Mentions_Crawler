@@ -4,11 +4,11 @@ const User = require("../models/User");
 const {protect} = require("../middleware/auth")
 //register user
 router.post("/register", async (req, res, next) => {
-  const { email, company, password } = req.body;
+  const { email, companies, password } = req.body;
   try {
     const user = await User.create({
       email,
-      company,
+      companies,
       password,
     });
 

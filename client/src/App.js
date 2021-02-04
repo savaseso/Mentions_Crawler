@@ -1,32 +1,38 @@
-import React, { useContext, useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
+import React from "react";
 import "./App.css";
-import { Context } from "./context";
-import { AuthenticatedRoutes, UnauthenticatedRoutes } from "./routes/routes";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { MuiThemeProvider } from "@material-ui/core";
 import { theme } from "./themes/theme";
 import NavBar from "./components/NavBar";
+import DashBoard from "./pages/DashBoard";
+import Settings from "./pages/Settings";
+import ProtectedRoute from "./components/ProtectedRoute"
+import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
+import { AuthProvider } from "./authContext";
+import Default from "./pages/Default";
 
  
 function App() {
-  const { isLoggedIn, checkLoginStatus,getUserData } = useContext(Context);
-
-
-  useEffect(() => {
-    //check if user is authenticated
-    checkLoginStatus();
-    if(isLoggedIn){
-      getUserData();
-    }
-  }, [isLoggedIn]);
   return (
     <MuiThemeProvider theme={theme}>
-      <React.Fragment>
-        <BrowserRouter>
-          <NavBar />
-          {isLoggedIn ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
-        </BrowserRouter>
-      </React.Fragment>
+      <AuthProvider>
+        <React.Fragment>
+          <BrowserRouter>
+            <NavBar />
+            <Switch>
+              <Route exact path="/">
+                <Redirect to="/signup" />
+              </Route>
+              <Route path="/signup" component={SignUp} />
+              <Route path="/login" component={Login} />
+              <ProtectedRoute path="/dashboard" component={DashBoard} />
+              <ProtectedRoute path="/settings" component={Settings} />
+              <Route component={Default} />
+            </Switch>
+          </BrowserRouter>
+        </React.Fragment>
+      </AuthProvider>
     </MuiThemeProvider>
   );
 }

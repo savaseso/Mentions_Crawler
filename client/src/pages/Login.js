@@ -1,17 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import { useForm } from "../hooks/useForm";
-import { Context } from "../context";
 import useStyles from "../themes/theme.form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { Box, Typography } from '@material-ui/core';
+import { Box, Typography } from "@material-ui/core";
+import { AuthContext } from "../authContext";
+import { Redirect, withRouter } from "react-router";
 
-const Login = (props) => {
+const Login = ({ history }) => {
   const [values, handleChange] = useForm({ email: "", password: "" });
-  const { setIsLoggedIn } = useContext(Context);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
   const classes = useStyles();
 
-  const login = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const config = {
       method: "POST",
@@ -24,8 +26,8 @@ const Login = (props) => {
     const response = await fetch("http://localhost:3001/login", config);
     const result = await response.json();
     if (result.success) {
-      props.history.push("/dashboard");
       setIsLoggedIn(true);
+      history.push("/dashboard");
     } else {
       alert(result.message);
     }
@@ -39,7 +41,7 @@ const Login = (props) => {
           Login to your account
         </Typography>
       </Box>
-      <form className={classes.form} onSubmit={login}>
+      <form className={classes.form} onSubmit={handleLogin}>
         <TextField
           name="email"
           type="email"
@@ -80,4 +82,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default withRouter(Login);
