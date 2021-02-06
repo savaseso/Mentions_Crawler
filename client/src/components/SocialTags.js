@@ -1,11 +1,23 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Switch from '@material-ui/core/Switch';
 import Box from '@material-ui/core/Box';
 import useStyles from "../themes/theme.dashboard";
+import { AuthContext } from "../authContext";
+
 
 const SocialTags = (props) => {
     const classes = useStyles();
-    const {name, logo} = props
+    const { platform, setPlatform } = useContext(AuthContext);
+    const {title,name, logo} = props
+
+    const handleChange = (e) =>{
+     const {name} = e.target;
+      setPlatform(prev => {
+        const platforms = { ...prev };
+        platforms[name] = !platforms[name];
+        return  platforms;
+      });
+    }
 
     return (
       <div className={classes.socialItem}>
@@ -18,10 +30,10 @@ const SocialTags = (props) => {
         >
           <Box flexGrow={1} display="flex" alignItems="center">
             <img className={classes.logos} src={logo} alt="logo" />
-            {name}
+            {title}
           </Box>
           <Box>
-            <Switch color="primary" />
+            <Switch name={props.name} checked={platform[`${name}`]}  color="primary" onChange={(e)=>handleChange(e)} />
           </Box>
         </Box>
       </div>

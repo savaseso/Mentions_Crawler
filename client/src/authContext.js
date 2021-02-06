@@ -9,6 +9,11 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [email, setEmail] = useState("");
   const [companies, setCompanies] = useState([]);
+  const [platform, setPlatform] = useState({
+    reddit:true,
+    twitter:false,
+    news:false
+  })
 
   const checkLoginStatus = async () => {
     const response = await fetch("http://localhost:3001/isUserAuth", {
@@ -40,6 +45,7 @@ export const AuthProvider = ({ children }) => {
   if (pending) {
     return <CircularProgress  />; //need to style it 
   }
+  console.log(platform)
 
   return (
     <AuthContext.Provider
@@ -52,6 +58,8 @@ export const AuthProvider = ({ children }) => {
         setEmail,
         companies,
         setCompanies,
+        platform,
+        setPlatform
       }}
     >
       {children}
