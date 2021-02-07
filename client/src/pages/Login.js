@@ -6,11 +6,11 @@ import Button from "@material-ui/core/Button";
 import { Box, Typography } from "@material-ui/core";
 import { AuthContext } from "../authContext";
 import { withRouter } from "react-router";
+import { toast } from 'react-toastify';
 
 const Login = ({ history }) => {
   const [values, handleChange] = useForm({ email: "", password: "" });
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-  const [errorMessage, setErrorMessage] = useState("")
   const classes = useStyles();
 
   const handleLogin = async (e) => {
@@ -29,8 +29,7 @@ const Login = ({ history }) => {
       setIsLoggedIn(true);
       history.push("/dashboard");
     } else {
-      setErrorMessage(result.message)
-  
+      toast.error(`${result.message}`,{position: "bottom-right",})
     }
   };
 
@@ -70,7 +69,8 @@ const Login = ({ history }) => {
           id="password"
           required
           fullWidth
-          minLength="6"
+          inputProps={{ minLength: 6 }}
+          /* minLength="6" */
           value={values.password}
           autoComplete="password"
           onChange={handleChange}

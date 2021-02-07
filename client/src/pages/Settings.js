@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import useStyles from "../themes/theme.settings";
 import { Grid } from "@material-ui/core";
 import { Typography, Container, Box } from "@material-ui/core";
@@ -6,17 +6,14 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import SettingsForm from "../components/SettingsForm";
 import SettingsIcon from "@material-ui/icons/Settings";
-import { useCookies } from 'react-cookie';
+import { AuthContext } from "../authContext";
 
 
 const Settings = (props) => {
   const classes = useStyles(props);
-  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+  const { logout } = useContext(AuthContext);
 
-  const logout = async () => {
-    removeCookie("token")
-    window.location.reload()
-   };
+
   return (
     <Container maxWidth="xl">
       <Grid container spacing={0} className={classes.grid}>

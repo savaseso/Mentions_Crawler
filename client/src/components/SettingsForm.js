@@ -1,4 +1,5 @@
-import React, { useState,useContext }  from 'react'
+import React, { useContext }  from 'react'
+import { toast } from 'react-toastify';
 import { TextField, Box } from "@material-ui/core";
 import useStyles  from "../themes/theme.settings";
 import Button from "@material-ui/core/Button";
@@ -8,18 +9,18 @@ import Button from "@material-ui/core/Button";
 
  const SettingsForm = () => {
    const classes = useStyles();
-  const { email, setEmail, companies, setCompanies } = useContext(AuthContext);
+   const { email, setEmail, companies, setCompanies } = useContext(AuthContext);
 
    const handleChangeInput = (index, event) => {
      const values = [...companies];
-      values[index][event.target.name] = event.target.value;
+     values[index][event.target.name] = event.target.value;
      setCompanies(values);
    };
 
-   const addCompany = () =>{
-     const id  = new ObjectID();
-     setCompanies([...companies, { company: "", _id:id.toString() }]);
-   }
+   const addCompany = () => {
+     const id = new ObjectID();
+     setCompanies([...companies, { company: "", _id: id.toString() }]);
+   };
    const removeCompany = (_id) => {
      const values = [...companies].filter((company) => company._id !== _id);
      setCompanies(values);
@@ -29,26 +30,28 @@ import Button from "@material-ui/core/Button";
      e.preventDefault();
      const data = {
        email,
-       companies:[...companies]     }
-       
-      const config = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(data),
-    };
-    try{
-     const req = await fetch("http://localhost:3001/settings",config) 
-    const result = await req.json()
-   if(result.success){
-     alert("Saved")
-   }
-    } catch(err) {
-      alert(err) 
-    }
+       companies: [...companies],
+     };
+
+     const config = {
+       method: "PUT",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       credentials: "include",
+       body: JSON.stringify(data),
+     };
+     try {
+       const req = await fetch("http://localhost:3001/settings", config);
+       const result = await req.json();
+       if (result.success) {
+         toast.info("Saved",{position: "bottom-right",})
+       }
+     } catch (err) {
+       toast.error(`${err.message}`,{position: "bottom-right",})
+     }
    };
+
    return (
      <form onSubmit={(e) => handleSubmit(e)}>
        <Box className={classes.container}>
@@ -74,15 +77,12 @@ import Button from "@material-ui/core/Button";
                InputProps={{
                  endAdornment:
                    index + 1 === companies.length ? (
-                     <Button
-                       className={classes.buttonInput}
-                       onClick={addCompany}
-                     >
+                     <Button className={classes.addButton} onClick={addCompany}>
                        Add
                      </Button>
                    ) : (
                      <Button
-                       className={classes.buttonInput}
+                       className={classes.removeButton}
                        onClick={() => removeCompany(_id)}
                      >
                        Remove

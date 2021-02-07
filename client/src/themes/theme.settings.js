@@ -52,19 +52,34 @@ const useStyles = makeStyles((theme) => ({
       background: "#617EE9",
     },
   },
-  buttonInput: {
+  addButton: {
     border: "none",
     width: "150px",
     height: "40px",
     borderRadius: "30px",
     marginRight: theme.spacing(1),
     color:"#fff",
-    backgroundColor: (props) => (props.add ? theme.palette.primary.main : "#E7E7E7"), //not working?! ask Bonnie
-    color: (props) => (props.add ? "#fff" : theme.palette.primary.main), 
+    backgroundColor:  theme.palette.primary.main,
+    color:  "#fff", 
     "&:hover": {
       background: "#617EE9",
     },
   },
+  removeButton: {
+    border: "none",
+    width: "150px",
+    height: "40px",
+    borderRadius: "30px",
+    marginRight: theme.spacing(1),
+    color:"#fff",
+    backgroundColor: "#d3eeff", 
+    color: theme.palette.primary.main,
+    "&:hover": {
+      background: "#617EE9",
+      color:'#fff'
+    },
+  },
+  
 }));
 
 export default useStyles;

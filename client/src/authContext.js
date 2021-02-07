@@ -1,9 +1,11 @@
 import React, { useEffect, useState, createContext } from "react";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { useCookies } from 'react-cookie';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
   const [pending, setPending] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
@@ -24,6 +26,11 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(result.success);
     setPending(false);
   };
+
+  const logout = () => {
+    removeCookie("token")
+    window.location.reload()
+   };
 
   const getUserData = async () => {
     const response = await fetch("http://localhost:3001/userData", {
@@ -57,7 +64,8 @@ export const AuthProvider = ({ children }) => {
         companies,
         setCompanies,
         platform,
-        setPlatform
+        setPlatform,
+        logout
       }}
     >
       {children}

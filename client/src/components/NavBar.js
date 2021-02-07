@@ -21,7 +21,10 @@ const NavBar = (props) => {
       <AppBar position="static">
         <Toolbar className={classes.root}>
           <Typography variant="h6" className={classes.title}>
-            mentions<span style={{ color: "#284097" }}>crawler.</span>
+            <Link to="/dashboard" style={{ textDecoration: "none" }}>
+              <span style={{ color: "#fff" }}>mentions</span>
+              <span style={{ color: "#284097" }}>crawler.</span>
+            </Link>
           </Typography>
           {!isLoggedIn ? (
             <React.Fragment>

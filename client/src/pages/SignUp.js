@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Box, Typography } from '@material-ui/core';
 import { AuthContext } from "../authContext";
+import { toast } from 'react-toastify';
 
 const SignUp = ({history}) => {
   const { setIsLoggedIn } = useContext(AuthContext);
@@ -35,7 +36,7 @@ const SignUp = ({history}) => {
       setIsLoggedIn(true);
       history.push('/dashboard')
     } else {
-      alert(result.message);
+      toast.error(`${result.message}`,{position: "bottom-right",})
     }
   };
 
@@ -91,6 +92,7 @@ const SignUp = ({history}) => {
             id="password"
             required
             fullWidth
+            inputProps={{ minLength: 6 }}
             value={values.password}
             autoComplete="password"
             onChange={handleChange}

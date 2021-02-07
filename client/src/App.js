@@ -11,7 +11,8 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import { AuthProvider } from "./authContext";
 import Default from "./pages/Default";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
  
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               <ProtectedRoute path="/settings" component={Settings} />
               <Route component={Default} />
             </Switch>
+            <ToastContainer autoClose={2500} />
           </BrowserRouter>
         </React.Fragment>
       </AuthProvider>

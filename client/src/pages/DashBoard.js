@@ -99,6 +99,7 @@ const DashBoard = () => {
             </Box>
             <Box>
               <Pagination
+              className={classes.pagination}
                 count={Math.ceil(mentions.length / postPerPage)}
                 page={currentPage}
                 limit={postPerPage}

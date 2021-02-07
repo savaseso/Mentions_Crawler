@@ -61,6 +61,9 @@ const useStyles = makeStyles((theme) => ({
       background: "#617EE9",
     },
   }, 
+  pagination:{
+    margin:"40px"
+  }
 }));
 
 export default useStyles;
