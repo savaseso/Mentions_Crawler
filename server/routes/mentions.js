@@ -5,7 +5,7 @@ const fetch = require("node-fetch");
 const client = require("../config/twitter");
 const uuid = require('uuid');
 const {format} = require('date-fns/fp');
-const { parseISO } = require("date-fns");
+const parseISO = require('date-fns/parseISO')
 
 
 //getting mentions
@@ -39,7 +39,7 @@ router.post("/mentions", protect, async (req, res, next) => {
           company: companies[i].company,
           text: mention.title,
           img: newImageUrl,
-          created: mention.created
+          created: new Date(mention.created * 1000)
         });
       }
     }
@@ -57,7 +57,7 @@ router.post("/mentions", protect, async (req, res, next) => {
               img: mention.profile_banner_url
               ? mention.profile_banner_url
               : "https://musically.com/wp-content/uploads/2019/02/twitter-logo.jpg",
-              created: mention.created_at,
+              created: new Date(mention.created_at),
             });
           }
         }

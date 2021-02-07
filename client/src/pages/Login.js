@@ -1,16 +1,16 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "../hooks/useForm";
 import useStyles from "../themes/theme.form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Box, Typography } from "@material-ui/core";
 import { AuthContext } from "../authContext";
-import { Redirect, withRouter } from "react-router";
+import { withRouter } from "react-router";
 
 const Login = ({ history }) => {
   const [values, handleChange] = useForm({ email: "", password: "" });
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-
+  const [errorMessage, setErrorMessage] = useState("")
   const classes = useStyles();
 
   const handleLogin = async (e) => {
@@ -29,7 +29,8 @@ const Login = ({ history }) => {
       setIsLoggedIn(true);
       history.push("/dashboard");
     } else {
-      alert(result.message);
+      setErrorMessage(result.message)
+  
     }
   };
 
@@ -78,6 +79,7 @@ const Login = ({ history }) => {
           Log in
         </Button>
       </form>
+     
     </Box>
   );
 };

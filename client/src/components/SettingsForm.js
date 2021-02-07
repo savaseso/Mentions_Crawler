@@ -3,14 +3,12 @@ import { TextField, Box } from "@material-ui/core";
 import useStyles  from "../themes/theme.settings";
 import Button from "@material-ui/core/Button";
  import { AuthContext } from "../authContext";
-
  import { ObjectID } from 'bson';
 
 
  const SettingsForm = () => {
    const classes = useStyles();
   const { email, setEmail, companies, setCompanies } = useContext(AuthContext);
-   const { currentUser } = useContext(AuthContext); 
 
    const handleChangeInput = (index, event) => {
      const values = [...companies];
@@ -51,7 +49,6 @@ import Button from "@material-ui/core/Button";
       alert(err) 
     }
    };
-   console.log(companies)
    return (
      <form onSubmit={(e) => handleSubmit(e)}>
        <Box className={classes.container}>
@@ -79,7 +76,6 @@ import Button from "@material-ui/core/Button";
                    index + 1 === companies.length ? (
                      <Button
                        className={classes.buttonInput}
-                       add
                        onClick={addCompany}
                      >
                        Add
@@ -125,4 +121,4 @@ import Button from "@material-ui/core/Button";
      </form>
    );
  }
-export default SettingsForm
+export default SettingsForm;

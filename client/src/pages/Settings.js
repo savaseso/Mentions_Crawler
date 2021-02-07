@@ -6,18 +6,17 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import SettingsForm from "../components/SettingsForm";
 import SettingsIcon from "@material-ui/icons/Settings";
+import { useCookies } from 'react-cookie';
 
 
 const Settings = (props) => {
   const classes = useStyles(props);
+  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
 
-  const logout = () => {
-    //1. remove cookie
-
-    //2.push to login
-     props.history.push("/login");
+  const logout = async () => {
+    removeCookie("token")
+    window.location.reload()
    };
-
   return (
     <Container maxWidth="xl">
       <Grid container spacing={0} className={classes.grid}>

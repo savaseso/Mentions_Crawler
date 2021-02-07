@@ -20,12 +20,10 @@ const useStyles = makeStyles((theme) => ({
     height: "45px",
     paddingRight: "10px",
   },
-  //MISSING these styles when rendering ?!
-
   buttonGroup: {
     backgroundColor: "#ccefff",
     width: "220px",
-    height: "45px",
+    height: "30px",
     display:"flex",
     justifyContent:"center",
     alignItems:"center",
@@ -48,6 +46,20 @@ const useStyles = makeStyles((theme) => ({
       color:"#fff"
     },
     
+  },
+  saveButton: {
+    border: "none",
+    width: "150px",
+    height: "52px",
+    marginTop: "20px",
+    marginRight: theme.spacing(2),
+    borderRadius: "30px",
+    marginLeft: "2rem",
+    backgroundColor: theme.palette.primary.main,
+    color: "#fff",
+    "&:hover": {
+      background: "#617EE9",
+    },
   }, 
 }));
 

@@ -45,6 +45,13 @@ router.post("/login", async (req, res, next) => {
     res.status(400).json({ message: err.message });
   }
 });
+//logout user
+router.post("/logout", async (req, res, next) => {
+  res
+    .status(200)
+    .clearCookie("token")
+    /* .cookie("token", '', options) */
+});
 
 //check if user is authenticated
 router.get("/isUserAuth", protect, async (req, res, next) => {
@@ -62,7 +69,7 @@ const sendTokenResponse = (user, statusCode, res, message) => {
   const token = user.getSignedJwtToken();
   const options = {
     expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
-    httpOnly: true
+    httpOnly: false
   };
 
   res

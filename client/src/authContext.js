@@ -45,8 +45,6 @@ export const AuthProvider = ({ children }) => {
   if (pending) {
     return <CircularProgress  />; //need to style it 
   }
-  console.log(platform)
-
   return (
     <AuthContext.Provider
       value={{
