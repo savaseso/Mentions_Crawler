@@ -1,7 +1,13 @@
-# Express Starter
+Mentions Crawler
 
-This starter repo will be used for building applications using React, Material-UI, React-Router, Node, & Express.js.
 
-## Getting started
+This web application help users to track content written about their company on different media platforms like Reddit, Twitter and News.
 
-The project is broken down into a client and server folder.
+Tech/Framework
+
+React.js/Material UI
+Express/Node.js
+MongoDB
+JWT
+Bcrypt
+

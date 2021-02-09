@@ -1,5 +1,5 @@
 import React,{useContext,useEffect,useState} from "react";
-import useStyles from "../themes/theme.dashboard";
+import useStyles from "../css/dashboard";
 import { Box, Grid } from "@material-ui/core";
 import { Typography ,Container} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -61,7 +61,6 @@ const DashBoard = () => {
  useEffect(() => {
    getMentions()
  }, [])
-
  const sortedMentions = !sort ? mentions : sortedArrByDates(mentions)
   return (
     <Container maxWidth="xl">

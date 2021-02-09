@@ -1,46 +1,49 @@
 import React, { useEffect, useState, createContext } from "react";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { useCookies } from 'react-cookie';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
   const [pending, setPending] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [email, setEmail] = useState("");
   const [companies, setCompanies] = useState([]);
   const [platform, setPlatform] = useState({
-    reddit:true,
-    twitter:false,
-    news:false
-  })
+    reddit: true,
+    twitter: false,
+    news: false,
+  });
 
   const checkLoginStatus = async () => {
-    const response = await fetch("http://localhost:3001/isUserAuth", {
-      credentials: "include",
-    });
-    const result = await response.json();
+    try {
+      const response = await fetch("http://localhost:3001/isUserAuth", {
+        credentials: "include",
+      });
+      const result = await response.json();
 
-    setIsLoggedIn(result.success);
-    setPending(false);
+      setIsLoggedIn(result.success);
+      setPending(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const logout = () => {
-    removeCookie("token")
-    window.location.reload()
-   };
+    window.location.reload();
+  };
 
   const getUserData = async () => {
     const response = await fetch("http://localhost:3001/userData", {
       credentials: "include",
     });
     const result = await response.json();
-    if (result.success) {
-      setCurrentUser(result.data);
-      setEmail(result.data.email);
-      setCompanies(result.data.companies);
+    const { success, data } = result;
+
+    if (success) {
+      setCurrentUser(data);
+      setEmail(data.email);
+      setCompanies(data.companies);
     }
   };
 
@@ -50,7 +53,7 @@ export const AuthProvider = ({ children }) => {
   }, [isLoggedIn]);
 
   if (pending) {
-    return <CircularProgress  />; //need to style it 
+    return <CircularProgress />; //need to style it
   }
   return (
     <AuthContext.Provider
@@ -65,7 +68,7 @@ export const AuthProvider = ({ children }) => {
         setCompanies,
         platform,
         setPlatform,
-        logout
+        logout,
       }}
     >
       {children}

@@ -32,6 +32,7 @@ router.post("/mentions", protect, async (req, res, next) => {
           newImageUrl =
             "https://media.wired.com/photos/5954a1b05578bd7594c46869/master/w_2560%2Cc_limit/reddit-alien-red-st.jpg";
         }
+        console.log(mention)
         mentions.push({
           id: mention.id,
           author: mention.author,

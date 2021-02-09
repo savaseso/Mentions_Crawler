@@ -1,5 +1,5 @@
 import React from 'react'
-import useStyles from "../themes/theme.card";
+import useStyles from "../css/card";
 import { Typography} from "@material-ui/core";
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';

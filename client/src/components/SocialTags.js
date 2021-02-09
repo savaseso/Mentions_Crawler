@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import Switch from '@material-ui/core/Switch';
 import Box from '@material-ui/core/Box';
-import useStyles from "../themes/theme.dashboard";
+import useStyles from "../css/dashboard";
 import { AuthContext } from "../authContext";
 
 
@@ -13,10 +13,12 @@ const SocialTags = (props) => {
     const handleChange = (e) =>{
      const {name} = e.target;
       setPlatform(prev => {
-        const platforms = { ...prev };
-        platforms[name] = !platforms[name];
-        return  platforms;
-      });
+        return {
+          ...prev,
+          [name]: !prev[name]
+        }
+      }
+    );
     }
 
     return (

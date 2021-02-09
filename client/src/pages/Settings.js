@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import useStyles from "../themes/theme.settings";
+import useStyles from "../css/settings";
 import { Grid } from "@material-ui/core";
 import { Typography, Container, Box } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";

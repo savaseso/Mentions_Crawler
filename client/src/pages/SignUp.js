@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useForm } from "../hooks/useForm";
-import useStyles from "../themes/theme.form";
+import useStyles from "../css/form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Box, Typography } from '@material-ui/core';
@@ -87,7 +87,6 @@ const SignUp = ({history}) => {
             margin="normal"
             size="medium"
             label="Password"
-            minLength="6"
             className={classes.input}
             id="password"
             required

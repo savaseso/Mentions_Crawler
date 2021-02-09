@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "../hooks/useForm";
-import useStyles from "../themes/theme.form";
+import useStyles from "../css/form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Box, Typography } from "@material-ui/core";
@@ -70,7 +70,6 @@ const Login = ({ history }) => {
           required
           fullWidth
           inputProps={{ minLength: 6 }}
-          /* minLength="6" */
           value={values.password}
           autoComplete="password"
           onChange={handleChange}

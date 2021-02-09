@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
-import {useStyles} from "../themes/theme.navbar";
+import {useStyles} from "../css/navbar";
 import { AuthContext } from "../authContext";
 
 

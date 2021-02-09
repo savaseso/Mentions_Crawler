@@ -1,7 +1,7 @@
 import React, { useContext }  from 'react'
 import { toast } from 'react-toastify';
 import { TextField, Box } from "@material-ui/core";
-import useStyles  from "../themes/theme.settings";
+import useStyles  from "../css/settings";
 import Button from "@material-ui/core/Button";
  import { AuthContext } from "../authContext";
  import { ObjectID } from 'bson';
