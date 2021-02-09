@@ -11,11 +11,8 @@ export const ContextProvider = (props) => {
       credentials: "include",
     });
     const result = await response.json();
-    if (result.success) {
-      setIsLoggedIn(true);
-    } else if (!result.success) {
-      setIsLoggedIn(false);
-    }
+
+    setIsLoggedIn(result.success);
   };
 
   const contextValue = {

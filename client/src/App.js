@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import { Context } from "./context";
 import { AuthenticatedRoutes, UnauthenticatedRoutes } from "./routes/routes";
-
+import { ContextProvider } from "./context";
 import NavBar from "./components/NavBar";
 
 function App() {
@@ -15,12 +15,14 @@ function App() {
     checkLoginStatus();
   }, [isLoggedIn]);
   return (
-    <React.Fragment>
-      <BrowserRouter>
-        <NavBar />
-        {isLoggedIn ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
-      </BrowserRouter>
-    </React.Fragment>
+    <ContextProvider>
+      <React.Fragment>
+        <BrowserRouter>
+          <NavBar />
+          {isLoggedIn ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
+        </BrowserRouter>
+      </React.Fragment>
+    </ContextProvider>
   );
 }
 export default App;

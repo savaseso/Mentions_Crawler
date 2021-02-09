@@ -48,7 +48,7 @@ router.post("/login", async (req, res, next) => {
 
 //check if user is authenticated
 router.get("/isUserAuth", protect, async (req, res, next) => {
-  const user = await User.findById(req.user.id)
+  const user = req.user
   try {
     res.status(200).json({success:true, data:user})
   } catch (err) {
