@@ -9,7 +9,10 @@ const cors = require('cors')
 
 
 const auth = require("./routes/auth");
-
+const mentions = require("./routes/mentions");
+const settings = require("./routes/settings");
+const userData = require("./routes/userData");
+ 
 //connect to mongodb
 connectDB();
 const { json, urlencoded } = express;
@@ -25,8 +28,11 @@ app.use(cors({credentials: true, origin: ['http://localhost:3000','http://localh
 
 
 
-app.use("/", auth);
-
+app.use("/", auth );
+app.use("/", mentions );
+app.use("/", settings );
+app.use("/", userData );
+ 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

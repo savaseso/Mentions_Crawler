@@ -13,8 +13,8 @@ const UserSchema = new mongoose.Schema({
     ],
   },
 
-  company: {
-    type: [String],
+  companies: {
+    type: [{company:String}],
     required: [true, "Please add a company name"]
   },
 

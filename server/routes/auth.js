@@ -2,19 +2,27 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const {protect} = require("../middleware/auth")
+
 //register user
 router.post("/register", async (req, res, next) => {
-  const { email, company, password } = req.body;
+  const { email, companies, password } = req.body;
   try {
     const user = await User.create({
       email,
-      company,
+      companies,
       password,
     });
 
     sendTokenResponse(user, 201, res, "true");
 
   } catch (err) {
+    //error handling 
+    if(err.errors){
+      err.message = err.errors.password.properties.message
+    }
+    if(err.code === 11000){
+      err.message = "Email is already registered"
+    }
     res.status(400).json({ message: err.message });
   }
 });
@@ -45,6 +53,7 @@ router.post("/login", async (req, res, next) => {
     res.status(400).json({ message: err.message });
   }
 });
+
 
 //check if user is authenticated
 router.get("/isUserAuth", protect, async (req, res, next) => {
