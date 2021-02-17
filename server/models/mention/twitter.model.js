@@ -5,6 +5,7 @@ const getTodayMentionsFromDb = require("../../functions/getTodayMentions.js");
 const client = require("../../config/twitter");
 
 class Twitter extends Mention {
+
   static async getAllMentions(companies) {
     let todayMentionsFromDb;
     todayMentionsFromDb = await getTodayMentionsFromDb("twitter");
@@ -24,6 +25,7 @@ class Twitter extends Mention {
       return todayMentionsFromDb;
     }
   }
+
   static async retrieveData(companies) {
     const mentions = [];
     for (let i = 0; i < companies.length; i++) {
@@ -34,6 +36,7 @@ class Twitter extends Mention {
     }
     return mentions;
   }
+
   static async mapDataToUniversalFormat(mentions) {
     return mentions.map((obj) => {
       const company = obj.company;
@@ -43,6 +46,7 @@ class Twitter extends Mention {
       });
     });
   }
+
   static async filterMentions(mentions) {
     return mentions.flat().filter((mention) => {
       const publishedUTC = new Date(mention.created_at) * 1000;
@@ -51,6 +55,7 @@ class Twitter extends Mention {
       return isLatestDayUTC;
     });
   }
+
   static async compareTodaysMentionsWithDbMentions(
     mentions,
     todayMentionsFromDb
@@ -59,11 +64,13 @@ class Twitter extends Mention {
       (api) => !todayMentionsFromDb.some((db) => api.id == db.id)
     );
   }
+
   static getImageUrl(imagePreview) {
     return imagePreview
       ? imagePreview
       : "https://musically.com/wp-content/uploads/2019/02/twitter-logo.jpg";
   }
+  
   static async saveAllMentionsToDb(mentions) {
     for (let mention of mentions) {
       const {

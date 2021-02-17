@@ -4,6 +4,7 @@ const newMention = require("../../functions/createNewMention");
 const getTodayMentionsFromDb = require("../../functions/getTodayMentions.js");
 
 class Reddit extends Mention {
+
   static async getAllMentions(companies) {
     let todayMentionsFromDb;
     todayMentionsFromDb = await getTodayMentionsFromDb("reddit");
@@ -23,6 +24,7 @@ class Reddit extends Mention {
       return todayMentionsFromDb;
     }
   }
+
   static async retrieveData(companies) {
     const mentions = [];
     for (let i = 0; i < companies.length; i++) {
@@ -38,16 +40,20 @@ class Reddit extends Mention {
     }
     return mentions;
   }
+
   static async mapDataToUniversalFormat(mentions) {
     const redditMentions = mentions.map((data) => {
       const company = data.company;
-      return data.data.children.map((data) => {
-        data.data.company = company;
-        return data.data;
+      const redditData = data.data;
+      return redditData.children.map((data) => {
+        const mappedRedditData = data.data
+        mappedRedditData.company = company;
+        return mappedRedditData;
       });
     });
     return redditMentions;
   }
+
   static async filterMentions(mentions) {
     return mentions.flat().filter((mention) => {
       const publishedUTC = mention.created * 1000;
@@ -56,6 +62,7 @@ class Reddit extends Mention {
       return isLatestDayUTC;
     });
   }
+
   static async compareTodaysMentionsWithDbMentions(
     mentions,
     todayMentionsFromDb
@@ -64,11 +71,13 @@ class Reddit extends Mention {
       (api) => !todayMentionsFromDb.some((db) => api.id == db.id)
     );
   }
+
   static getImageUrl(imagePreview) {
     return imagePreview
       ? imagePreview.images[0].source.url.replace("amp;s", "s")
       : "https://media.wired.com/photos/5954a1b05578bd7594c46869/master/w_2560%2Cc_limit/reddit-alien-red-st.jpg";
   }
+  
   static async saveAllMentionsToDb(mentions) {
     for (let mention of mentions) {
       const {

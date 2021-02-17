@@ -1,7 +1,7 @@
 const Mention = require("../models/mention/mention.schema");
 
 
-const  newMention = async (id, platform, author, company,text,img,popularity,created) =>{
+const  newMention = async (id, platform, author, company, text, img, popularity, created) =>{
      await new Mention({
         id,
         platform,

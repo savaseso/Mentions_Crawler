@@ -5,6 +5,7 @@ const getTodayMentionsFromDb = require("../../functions/getTodayMentions.js");
 const uuid = require("uuid");
 
 class News extends Mention {
+
   static async getAllMentions(companies) {
     let todayMentionsFromDb;
     todayMentionsFromDb = await getTodayMentionsFromDb("news");
@@ -24,6 +25,7 @@ class News extends Mention {
       return todayMentionsFromDb;
     }
   }
+
   static async retrieveData(companies) {
     const mentions = [];
     for (let i = 0; i < companies.length; i++) {
@@ -35,6 +37,7 @@ class News extends Mention {
     }
     return mentions;
   }
+
   static async mapDataToUniversalFormat(mentions) {
     return mentions.map((news) => {
       const company = news.company;
@@ -44,8 +47,8 @@ class News extends Mention {
       });
     });
   }
-  static async filterMentions(mentions) {
 
+  static async filterMentions(mentions) {
     return mentions
       .flat()
       .filter(
@@ -56,6 +59,7 @@ class News extends Mention {
           return isLatestDayUTC
         });
   }
+
   static async compareTodaysMentionsWithDbMentions(
     mentions,
     todayMentionsFromDb
@@ -64,16 +68,17 @@ class News extends Mention {
       (api) => !todayMentionsFromDb.some((db) => api.title == db.text)
     );
   }
+
   static getImageUrl(urlToImage) {
     return urlToImage
       ? urlToImage
       : "https://www.dailynews.com/wp-content/uploads/2017/09/img_3776.jpg";
   }
+
   static async saveAllMentionsToDb(mentions) {
     for (let mention of mentions) {
       const { author, title, company, urlToImage, publishedAt } = mention;
-      if (urlToImage === "undefined") {
-      }
+  
       const newImageUrl = this.getImageUrl(urlToImage);
       await newMention(
         uuid.v1(),
