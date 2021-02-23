@@ -7,7 +7,7 @@ const EmailQueue = require("../services/Email");
 router.post("/report/:email", protect, async (req, res, next) => {
   User.findOne({ email: req.params.email }).exec((err, user) => {
     if (user) {
-      if (req.body.subscribe) {
+      if (req.body.subscribed) {
         EmailQueue.add(user, { repeat: { every: 36000, jobId: user._id } }); //for test purposes every 36second
         res.status(200).json({
           success: true,
