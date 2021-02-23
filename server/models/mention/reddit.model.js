@@ -86,7 +86,7 @@ class Reddit extends Mention {
         title,
         ups,
         company,
-        num_comments,
+        num_comments:NumComments,
         created,
         preview,
       } = mention;
@@ -100,7 +100,7 @@ class Reddit extends Mention {
         company,
         title,
         newImageUrl,
-        ups + num_comments,
+        ups + NumComments,
         new Date(created * 1000)
       );
     }
