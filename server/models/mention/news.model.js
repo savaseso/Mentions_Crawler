@@ -8,7 +8,7 @@ class News extends Mention {
 
   static async getAllMentions(companies) {
     let todayMentionsFromDb;
-    todayMentionsFromDb = await getTodayMentionsFromDb("news");
+    todayMentionsFromDb = await getTodayMentionsFromDb("news",companies);
     const dataInDb = 20;
     if (todayMentionsFromDb.length >= dataInDb) {
       return todayMentionsFromDb;
@@ -21,7 +21,7 @@ class News extends Mention {
         todayMentionsFromDb
       );
       await this.saveAllMentionsToDb(comparedMentions);
-      todayMentionsFromDb = await getTodayMentionsFromDb("news");
+      todayMentionsFromDb = await getTodayMentionsFromDb("news",companies);
       return todayMentionsFromDb;
     }
   }
