@@ -9,7 +9,6 @@ const cors = require('cors')
 
 
 const auth = require("./routes/auth");
-const email = require("./routes/email");
 const mentions = require("./routes/mentions");
 const settings = require("./routes/settings");
 const userData = require("./routes/userData");
@@ -33,7 +32,6 @@ app.use("/", auth );
 app.use("/", mentions );
 app.use("/", settings );
 app.use("/", userData );
-app.use("/", email );
  
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

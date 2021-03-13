@@ -31,34 +31,24 @@ const SettingsForm = () => {
     const data = {
       email,
       companies: [...companies],
+      subscribed: isSubscribed,
     };
 
-     const saveCompaniesPut = {
+    const config = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       credentials: "include",
       body: JSON.stringify(data),
-    }; 
-
-    const subscriptionPost = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-       credentials: "include", 
-      body: JSON.stringify({subscribed:isSubscribed}),
     };
+
     try {
-      const saveCompanies = await fetch("http://localhost:3001/settings", saveCompaniesPut);
-      const subscribeUser = await fetch(`http://localhost:3001/report/${email}`, subscriptionPost);
-      const resultSavedCompanies = await saveCompanies.json();
-      const resultSubscription = await subscribeUser.json();
-    
-      if (resultSavedCompanies.success && resultSubscription.success) {
-        toast.info(`${resultSubscription.message}`, { position: "bottom-right" });
-        toast.info(`${resultSavedCompanies.message}`, { position: "bottom-right" });
+      const response = await fetch("http://localhost:3001/settings", config);
+      const result = await response.json();
+
+      if (result.success) {
+        toast.info(`${result.message}`, { position: "bottom-right" });
       }
     } catch (err) {
       toast.error(`${err.message}`, { position: "bottom-right" });
