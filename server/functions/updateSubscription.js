@@ -2,7 +2,7 @@ const EmailQueue = require("../services/Email");
 
 const updateSubscription = async (subscribed, user) => {
   if (subscribed) {
-    EmailQueue.add(user, { repeat: { every: 36000, jobId: user._id } }); //for test purposes every 36second
+    EmailQueue.add(user, { repeat: { every: 100000, jobId: user._id } }); //for test purposes every 36second
     return "subscribed for weekly email";
   } else {
     EmailQueue.getRepeatableJobs().then((jobs) => {

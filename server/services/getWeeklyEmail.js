@@ -55,9 +55,10 @@ const getWeeklyEmailHtml = (mentions) => {
         @
         </p>
     </div>
-    <h4> Your mentions for ...:</h4>
+    <h4> Your mentions for this week:</h4>
     ${getEachMention()}
     <div style="display: flex;justify-content: center;align-items: center;">
+    <a href='http://localhost:3000/settings'>
       <button
         style="
           border: none;
@@ -73,6 +74,7 @@ const getWeeklyEmailHtml = (mentions) => {
       >
         Check More...
       </button>
+    </a>
     </div>
   
 </body>

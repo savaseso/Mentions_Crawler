@@ -13,10 +13,11 @@ EmailQueue.process(async (job, done) => {
   //returns 4 mentions which today - 1 week and most popular and related to user companies
   let mentions = await Mention.find({
     company: { $in: companies },
-    created: { $lt: new Date(new Date() - 7 * 24 * 60 * 60 * 1000) },
+    created: { $gt: new Date(new Date() - 7 * 24 * 60 * 60 * 1000) },
   })
     .sort({ popularity: -1 })
     .limit(4);
+
 
   try {
     const msg = {
