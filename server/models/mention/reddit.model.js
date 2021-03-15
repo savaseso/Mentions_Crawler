@@ -7,7 +7,7 @@ class Reddit extends Mention {
 
   static async getAllMentions(companies) {
     let todayMentionsFromDb;
-    todayMentionsFromDb = await getTodayMentionsFromDb("reddit");
+    todayMentionsFromDb = await getTodayMentionsFromDb("reddit",companies);
     const dataInDb = 10;
     if (todayMentionsFromDb.length >= dataInDb) {
       return todayMentionsFromDb;
@@ -20,7 +20,7 @@ class Reddit extends Mention {
         todayMentionsFromDb
       );
       await this.saveAllMentionsToDb(comparedMentions);
-      todayMentionsFromDb = await getTodayMentionsFromDb("reddit");
+      todayMentionsFromDb = await getTodayMentionsFromDb("reddit", companies);
       return todayMentionsFromDb;
     }
   }
